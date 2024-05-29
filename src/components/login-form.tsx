@@ -12,7 +12,6 @@ const schema = z.object({
       required_error: '이메일을 입력해주세요',
     })
     .email('잘못된 이메일 형식입니다'),
-  phoneNumber: z.string().min(11, '휴대폰 번호를 확인해 주세요'),
   password: z
     .string({
       required_error: '비밀번호를 입력해주세요',
@@ -42,7 +41,7 @@ export const LoginForm = ({ onSubmit = () => {} }: LoginFormProps) => {
   return (
     <View className="flex-1 justify-center p-4">
       <Text testID="form-title" className="pb-6 text-center text-2xl">
-        👽
+        👽 로그인
       </Text>
 
       <ControlledInput
@@ -50,12 +49,6 @@ export const LoginForm = ({ onSubmit = () => {} }: LoginFormProps) => {
         control={control}
         name="email"
         label="이메일"
-      />
-      <ControlledInput
-        testID="phone-number-input"
-        control={control}
-        name="phoneNumber"
-        label="휴대폰 번호"
       />
       <ControlledInput
         testID="password-input"
