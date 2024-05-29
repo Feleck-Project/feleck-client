@@ -7,17 +7,25 @@ import * as z from 'zod';
 import { Button, ControlledInput, Text, View } from '@/ui';
 
 const schema = z.object({
-  name: z.string().optional(),
   email: z
     .string({
-      required_error: 'Email is required',
+      required_error: '이메일을 입력해주세요',
     })
-    .email('Invalid email format'),
+    .email('잘못된 이메일 형식입니다'),
   password: z
     .string({
-      required_error: 'Password is required',
+      required_error: '비밀번호를 입력해주세요',
     })
-    .min(6, 'Password must be at least 6 characters'),
+    .refine((value) => value.length >= 8, '비밀번호는 8자리 이상이어야 합니다')
+    .refine(
+      (value) => /[A-Za-z]/.test(value),
+      '비밀번호는 영문자를 포함해야 합니다'
+    )
+    .refine((value) => /\d/.test(value), '비밀번호는 숫자를 포함해야 합니다')
+    .refine(
+      (value) => /\W|_/.test(value),
+      '비밀번호는 최소 1개의 특수문자를 포함해야 합니다'
+    ),
 });
 
 export type FormType = z.infer<typeof schema>;
@@ -33,33 +41,25 @@ export const LoginForm = ({ onSubmit = () => {} }: LoginFormProps) => {
   return (
     <View className="flex-1 justify-center p-4">
       <Text testID="form-title" className="pb-6 text-center text-2xl">
-        Sign In
+        👽 로그인
       </Text>
-
-      <ControlledInput
-        testID="name"
-        control={control}
-        name="name"
-        label="Name"
-      />
 
       <ControlledInput
         testID="email-input"
         control={control}
         name="email"
-        label="Email"
+        label="이메일"
       />
       <ControlledInput
         testID="password-input"
         control={control}
         name="password"
-        label="Password"
-        placeholder="***"
+        label="비밀번호"
         secureTextEntry={true}
       />
       <Button
         testID="login-button"
-        label="Login"
+        label="로그인"
         onPress={handleSubmit(onSubmit)}
       />
     </View>

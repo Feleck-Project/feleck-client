@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+/codeStyles/codeStyleConfig.xml
+/feleck-app.iml
+/git_toolbox_prj.xml
+/modules.xml
+/codeStyles/Project.xml
+/inspectionProfiles/Project_Default.xml
+/vcs.xml
+/jsLinters/eslint.xml
